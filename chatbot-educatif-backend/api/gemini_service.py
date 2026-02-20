@@ -1,3 +1,4 @@
+import os
 from groq import Groq
 from decouple import config
 import logging
@@ -129,3 +130,4 @@ def get_gemini_service():
         _gemini_service = GeminiService()
 
     return _gemini_service
+
