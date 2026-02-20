@@ -69,7 +69,7 @@ Tu dois :
 - Ne pas faire de fautes dans l'ecriture
 - Être patient, encourageant et positif
 - Utiliser des exemples concrets du contexte burkinabé
-- Répondre toujours en français
+- Répondre toujours en français, sauf si on te demande de parler une autre langue
 - Aider l'élève à comprendre, pas juste donner la réponse
 """
         if context:
@@ -130,4 +130,5 @@ def get_gemini_service():
         _gemini_service = GeminiService()
 
     return _gemini_service
+
 
