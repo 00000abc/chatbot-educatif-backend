@@ -202,17 +202,15 @@ else:
         default='*'
     ).split(',')
     CORS_ALLOW_CREDENTIALS = True"""
+
 if DEBUG:
     CORS_ALLOW_ALL_ORIGINS = True
 else:
-    import os
-    allowed = os.environ.get('CORS_ALLOWED_ORIGINS', '')
-    if allowed:
-        CORS_ALLOWED_ORIGINS = [origin.strip() for origin in allowed.split(',') if origin.strip()]
-    else:
-        # Fallback sécurisé : interdire toutes les origines (ou autoriser une par défaut)
-        CORS_ALLOWED_ORIGINS = []
-    CORS_ALLOW_CREDENTIALS = True
+    # Pour le test, autoriser toutes les origines en production
+    CORS_ALLOW_ALL_ORIGINS = True
+    # Plus tard, tu pourras restreindre avec :
+    # CORS_ALLOWED_ORIGINS = config('CORS_ALLOWED_ORIGINS', default='').split(',')
+    # CORS_ALLOW_CREDENTIALS = True
 
 
 # ========== REST FRAMEWORK ==========
@@ -233,12 +231,12 @@ SIMPLE_JWT = {
     'BLACKLIST_AFTER_ROTATION': True,
 }
 
-CORS_ALLOWED_ORIGINS = [
+"""CORS_ALLOWED_ORIGINS = [
     "http://localhost:8081",  # React Native dev server
     "http://localhost:19000",  # Expo
     "http://10.0.2.2:8000",   # Android emulator
     "http://127.0.0.1:8000",
-]
+]"""
 
 # ========== LANGUE ==========
 LANGUAGE_CODE = 'fr-fr'
@@ -264,3 +262,4 @@ if not DEBUG:
     SECURE_CONTENT_TYPE_NOSNIFF = True
 
     X_FRAME_OPTIONS = 'DENY'
+
