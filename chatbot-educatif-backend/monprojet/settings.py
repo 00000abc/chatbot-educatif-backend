@@ -194,13 +194,24 @@ STATIC_URL = 'static/'
 # ========== CORS ==========
 """CORS_ALLOW_ALL_ORIGINS = True"""
 # CORS : permissif en dev, strict en production
-if DEBUG:
+"""if DEBUG:
     CORS_ALLOW_ALL_ORIGINS = True
 else:
     CORS_ALLOWED_ORIGINS = config(
         'CORS_ALLOWED_ORIGINS',
         default='*'
     ).split(',')
+    CORS_ALLOW_CREDENTIALS = True"""
+if DEBUG:
+    CORS_ALLOW_ALL_ORIGINS = True
+else:
+    import os
+    allowed = os.environ.get('CORS_ALLOWED_ORIGINS', '')
+    if allowed:
+        CORS_ALLOWED_ORIGINS = [origin.strip() for origin in allowed.split(',') if origin.strip()]
+    else:
+        # Fallback sécurisé : interdire toutes les origines (ou autoriser une par défaut)
+        CORS_ALLOWED_ORIGINS = []
     CORS_ALLOW_CREDENTIALS = True
 
 
@@ -251,4 +262,5 @@ if not DEBUG:
     CSRF_COOKIE_SECURE = True
     SECURE_BROWSER_XSS_FILTER = True
     SECURE_CONTENT_TYPE_NOSNIFF = True
+
     X_FRAME_OPTIONS = 'DENY'
