@@ -11,7 +11,7 @@ class GeminiService:
     """
 
     def __init__(self):
-        self.api_key = config('GROQ_API_KEY', default='')
+        self.api_key = os.environ.get('GROQ_API_KEY') or config('GROQ_API_KEY', default='')
         self.client = None
         self.model_name = None
         self.configure()
@@ -127,4 +127,5 @@ def get_gemini_service():
     global _gemini_service
     if _gemini_service is None:
         _gemini_service = GeminiService()
+
     return _gemini_service
